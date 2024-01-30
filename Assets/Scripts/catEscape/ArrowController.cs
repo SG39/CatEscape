@@ -29,7 +29,7 @@ public class ArrowController : MonoBehaviour
         // 방향 * 속도 * 시간
         Vector3 movement = Vector3.down * speed * Time.deltaTime;
         this.transform.Translate(movement);
-        Debug.LogFormat("y : {0}", this.transform.position.y);
+        // Debug.LogFormat("y : {0}", this.transform.position.y);
         
 
         // 현재좌표가 -3보다 작아졌을때 삭제(바닥에 닿았을 때)

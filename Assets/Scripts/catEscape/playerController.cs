@@ -3,15 +3,26 @@ using System.Collections.Generic;
 using Unity.IO.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class playerController : MonoBehaviour
 {
     [SerializeField] private float catHp = 100;
+    [SerializeField] private Button LButton;
+    [SerializeField] private Button RButton;
     public float radius = 1f;
     // Start is called before the first frame update
     void Start()
     {
+        // this.LButton.onClick.AddListener(this.LButtonClick);
+        // this.LButton.onClick.AddListener(this.RButtonClick);
 
+        this.LButton.onClick.AddListener( () => { 
+            Debug.Log("LB Click");
+            this.transform.Translate(-2, 0, 0); }); // 람다식 사용
+        this.RButton.onClick.AddListener( () => { 
+            Debug.Log("RB Click");
+            this.transform.Translate(2, 0, 0); });
     }
 
     // Update is called once per frame
@@ -53,4 +64,15 @@ public class playerController : MonoBehaviour
     {
         catHp -= setHp;
     }
+
+    public void LButtonClick()
+    {
+        Debug.Log("LB");
+    }
+
+    public void RButtonClick()
+    {
+        Debug.Log("RB");
+    }
+    
 }
