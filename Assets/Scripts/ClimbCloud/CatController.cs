@@ -15,6 +15,7 @@ public class CatController : MonoBehaviour
     private ClimbClouldGameDirector gameDirector;
     private Animator animator;
     private bool isTouch = false;
+    private int dirX = 0; // 방향 움직는 방향
 
     private void Start() 
     {
@@ -24,46 +25,57 @@ public class CatController : MonoBehaviour
     
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            // 점프
-            // this.rbody.AddForce(Vector3.up * this.force); // 월드좌표상            
-            this.rbody.AddForce(this.transform.up * this.jumpForce); // 로컬좌표와 유사
-        }
+        JampCat();   
 
-        int dir = 0;
+        MoveCat();
 
 
-        if(Input.GetKey(KeyCode.LeftArrow))
-        {
-            dir = -1;
-        }
-
-        if(Input.GetKey(KeyCode.RightArrow))
-        {
-            dir = 1;
-        }
-
-        ReversCat(dir); // 회전
-
-        if(Mathf.Abs(this.rbody.velocity.x) < 3)
-        {
-            this.rbody.AddForce((this.transform.right*dir) * this.moveForce);
-            animator.speed = animeSpeed * Mathf.Abs(this.rbody.velocity.x);
-            // Debug.Log(animator.speed);
-        }
-
-        this.gameDirector.UpdateVelocityText(this.rbody.velocity);
+        this.gameDirector.UpdateVelocityText(this.rbody.velocity); // velocity표기
 
 
     }
 
-    private void ReversCat(int dir)
+    private void JampCat()// 점프
     {
-        if(dir != 0)
+        if(Input.GetKeyDown(KeyCode.Space))
         {
-            this.transform.localScale = new Vector3(dir, 1, 1);
+            Debug.Log("Jamp : False");
+            if(this.rbody.velocity.y == 0)
+            {
+                Debug.Log("Jamp : True");
+                this.rbody.AddForce(this.transform.up * this.jumpForce); // 로컬좌표와 유사 // this.rbody.AddForce(Vector3.up * this.force); // 월드좌표상  
+            }        
         }
+    }
+
+    private void MoveCat()
+    {
+        float posX = Mathf.Clamp(this.transform.position.x, -2.7f, 2.7f);
+        this.transform.position = new Vector3(posX, this.transform.position.y, this.transform.position.z);
+
+        if(Input.GetKey(KeyCode.LeftArrow))
+        {
+            dirX = -1;
+        }
+
+        if(Input.GetKey(KeyCode.RightArrow))
+        {
+            dirX = 1;
+        }
+
+        if(Mathf.Abs(this.rbody.velocity.x) < 3) // 속도 한정하기
+        {
+            this.rbody.AddForce((this.transform.right*dirX) * this.moveForce);
+            animator.speed = animeSpeed * Mathf.Abs(this.rbody.velocity.x);
+            // Debug.Log(animator.speed);
+        }
+
+        if(dirX != 0) // 고양이 회전
+        {
+            this.transform.localScale = new Vector3(dirX, 1, 1);
+        }
+
+        dirX = 0;
     }
 
     // 최초 충돌

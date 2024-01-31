@@ -9,8 +9,8 @@ public class ClimbClouldGameDirector : MonoBehaviour
     
     public void UpdateVelocityText(Vector2 velocity)
     {
-        float velocityX = Mathf.Abs(velocity.x);
-        this.velocityText.text = velocityX.ToString();
+        // float velocityX = Mathf.Abs(velocity.x);
+        this.velocityText.text = velocity.ToString();
     }
     
 }
