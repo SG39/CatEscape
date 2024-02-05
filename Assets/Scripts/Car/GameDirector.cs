@@ -18,10 +18,13 @@ public class GameDirector : MonoBehaviour
     {
         this.carGo = GameObject.Find("car");
         Debug.LogFormat("this.carGo : {0}",carGo); // car 게임오브젝트의 인스턴스
+
         this.flagGo = GameObject.Find("flag");
         Debug.LogFormat("this.carGo : {0}",flagGo); // flag 게임오브젝트의 인스턴스
+
         this.distanceGo = GameObject.Find("distance");
         Debug.LogFormat("this.distanceGo : {0}",distanceGo);// distance 게임오브젝트의 인스턴스
+        
         
         distanceText = this.distanceGo.GetComponent<Text>();// distance오브젝트의 Text로 접근하기
         Debug.LogFormat("distanceText : {0}",distanceText);

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Test2Main : MonoBehaviour
 {
-    [SerializeField] private Transform CubeTransform;
+    [SerializeField] private Transform bascatTransform;
 
     void Update()
     {
@@ -22,7 +22,7 @@ public class Test2Main : MonoBehaviour
             {
                 Debug.Log("충돌함");
                 Debug.LogFormat(" => {0}", hit.point);
-                this.CubeTransform.position = hit.point;
+                // this.ObjectTransform.position = hit.point;
             }
             /*
                 실수 원인

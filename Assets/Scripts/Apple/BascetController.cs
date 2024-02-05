@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class BascetController : MonoBehaviour
@@ -7,10 +8,16 @@ public class BascetController : MonoBehaviour
     [SerializeField] private AudioClip appleSfx;
     [SerializeField] private AudioClip bombsSfX;
     private AudioSource audioSource;
+    private GameObject gameManager;
+    private BascetGameManager bascetGameManager;
+    [SerializeField] private float appleScore = 100f;
+    [SerializeField] private float BombScore = 0.5f;
 
     void Start()
     {
         this.audioSource = this.GetComponent<AudioSource>();
+        this.gameManager = GameObject.Find("BascetGameManager");
+        this.bascetGameManager = gameManager.GetComponent<BascetGameManager>();
     }
 
 
@@ -45,11 +52,14 @@ public class BascetController : MonoBehaviour
         if(other.gameObject.tag == "Item")
         {
             Debug.Log("득점");
+            this.bascetGameManager.AddScore(appleScore);
             this.audioSource.PlayOneShot(this.appleSfx);
         }
         if(other.gameObject.tag == "Bomb")
         {
             Debug.Log("감점");
+            this.bascetGameManager.DiScore(BombScore);
+            this.audioSource.PlayOneShot(this.bombsSfX);
         }
         Destroy(other.gameObject);
     }
