@@ -45,10 +45,6 @@ public class BombGuyController : MonoBehaviour
         }
         yield return null;
         yield return null;
-        yield return null;
-        yield return null;
-        yield return null;
-        yield return null;
         yield return null; // 가능
 
         callback();
